@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Script that fetch 10 hot post for a given subreddit."""
-from turtle import clear
 import requests
 
 
