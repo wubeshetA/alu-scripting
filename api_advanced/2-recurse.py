@@ -30,7 +30,7 @@ def recurse(subreddit, after="", hot_list=[], page_counter=0):
         if after is not None:
 
             page_counter += 1
-            print(len(hot_list))
+            # print(len(hot_list))
             return recurse(subreddit, after=after,
                            hot_list=hot_list, page_counter=page_counter)
         else:
