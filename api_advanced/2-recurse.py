@@ -22,13 +22,16 @@ def recurse(subreddit, after="", hot_list=[], page_counter=0):
         for child in json_data.get('data').get('children'):
             title = child.get('data').get('title')
             hot_list.append(title)
-        # print('the current after is : ', after)
+
+        # variable after indicates if there is data on the next pagination
+        # on the reddit API after holds a unique name for that subreddit page.
+        # if it is None it indicates it is the last page.
+        after = json_data.get('data').get('after')
         if after is not None:
 
             page_counter += 1
-            new_after = json_data.get('data').get('after')
-            # print(page_counter, ". Got next page --> ", new_after)
-            return recurse(subreddit, after=new_after,
+            print(len(hot_list))
+            return recurse(subreddit, after=after,
                            hot_list=hot_list, page_counter=page_counter)
         else:
             return hot_list
@@ -38,4 +41,4 @@ def recurse(subreddit, after="", hot_list=[], page_counter=0):
 
 
 if __name__ == '__main__':
-    print(recurse("programming"))
+    print(recurse("zerowastecz"))
