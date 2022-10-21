@@ -56,7 +56,7 @@ def count_words(subreddit, word_list, after="", hot_list=[]):
                         counter[word] += 1
             sorted_counter = dict(
                 sorted(counter.items(),
-                       key=lambda item: item[1], reverse=True))
+                       key=lambda item: item[1]))
             for key, value in sorted_counter.items():
                 if value > 0:
                     print("{}: {}".format(key, value))
