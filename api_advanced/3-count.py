@@ -2,6 +2,7 @@
 """A script that counts the number of occurrences of list of words
 in a given subreddit."""
 
+from audioop import reverse
 import requests
 
 headers = {'User-Agent': 'MyAPI/0.0.1'}
@@ -16,6 +17,7 @@ def count_words(subreddit, word_list, after="", hot_list=[]):
     response = requests.get(subreddit_url, headers=headers, params=parameters)
 
     if response.status_code == 200:
+        # print(response.status_code)
         json_data = response.json()
         # get the 'after' value from the response to pass it on the request
 
@@ -44,20 +46,25 @@ def count_words(subreddit, word_list, after="", hot_list=[]):
                     counter[word] += 1
             # loop through the hot_list to check if word is found in the list
             for title in hot_list:
-                title_list = title.lower().split(" ")
+                title_list = title.lower().split(' ')
                 for word in counter.keys():
-
-                    if (word in title_list):
+                    search_word = "{}".format(word)
+                    if search_word in title_list:
                         counter[word] += 1
             sorted_counter = dict(
-                sorted(counter.items(), key=lambda item: item[1]))
+                sorted(counter.items(), key=lambda item: item[1], reverse=True))
             for key, value in sorted_counter.items():
                 if value > 0:
                     print("{}: {}".format(key, value))
+            # print(hot_list)
+            
     else:
         return None
 
 
 if __name__ == '__main__':
-    count_words("programming", ["react", "python", "java",
-                "javascript", "scala", "no_result_for_this"])
+    count_words('unpopular', ['down', 'vote', 'downvote', 'you', 'her', 'unpopular', 'politics'])
+    # count_words("hello", ['hello', 'hello', 'hello'])
+    # count_words("unpopular", ["react", "python", "java",
+    #             "javascript", "scala", "no_result_for_this"])
+
