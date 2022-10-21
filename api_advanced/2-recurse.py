@@ -5,6 +5,7 @@ import requests
 
 headers = {'User-Agent': 'MyAPI/0.0.1'}
 
+
 def recurse(subreddit, after="", hot_list=[], page_counter=0):
     """Return all hot posts in a subreddit."""
 
