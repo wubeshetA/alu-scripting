@@ -17,8 +17,11 @@ def count_words(subreddit, word_list, after="", hot_list=[]):
     response = requests.get(subreddit_url, headers=headers, params=parameters)
 
     if response.status_code == 200:
+
         # print(response.status_code)
         json_data = response.json()
+        if (json_data.get('data').get('dist') == 0):
+            return
         # get the 'after' value from the response to pass it on the request
 
         # get title and append it to the hot_list
@@ -52,19 +55,22 @@ def count_words(subreddit, word_list, after="", hot_list=[]):
                     if search_word in title_list:
                         counter[word] += 1
             sorted_counter = dict(
-                sorted(counter.items(), key=lambda item: item[1], reverse=True))
+                sorted(counter.items(),
+                       key=lambda item: item[1], reverse=True))
             for key, value in sorted_counter.items():
                 if value > 0:
                     print("{}: {}".format(key, value))
             # print(hot_list)
-            
+
     else:
-        return None
+        return
 
 
 if __name__ == '__main__':
-    count_words('unpopular', ['down', 'vote', 'downvote', 'you', 'her', 'unpopular', 'politics'])
+    count_words('unpopular', ['down', 'vote', 'downvote',
+                              'you', 'her', 'unpopular', 'politics'])
     # count_words("hello", ['hello', 'hello', 'hello'])
     # count_words("unpopular", ["react", "python", "java",
-    #             "javascript", "scala", "no_result_for_this"])
+    # "javascript", "scala", "no_result_for_this"])
 
+    # count_words('hello', ['hello', 'hello', 'hello'])
