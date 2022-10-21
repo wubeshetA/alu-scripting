@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 """Script that fetch all hot post for a given subreddit with recursive call."""
-from unicodedata import name
-from matplotlib.pyplot import hot
+
 import requests
 
 headers = {'User-Agent': 'MyAPI/0.0.1'}
-
 
 def recurse(subreddit, after="", hot_list=[], page_counter=0):
     """Return all hot posts in a subreddit."""
