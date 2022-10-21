@@ -56,7 +56,7 @@ def count_words(subreddit, word_list, after="", hot_list=[]):
                         counter[word] += 1
             sorted_counter = dict(
                 sorted(counter.items(),
-                       key=lambda item: item[1]))
+                       key=lambda item: item[1], reverse=True))
             for key, value in sorted_counter.items():
                 if value > 0:
                     print("{}: {}".format(key, value))
@@ -67,6 +67,7 @@ def count_words(subreddit, word_list, after="", hot_list=[]):
 
 
 if __name__ == '__main__':
+    count_words("hello", ['REDDIT', 'german', 'HI', 'whynot'])
     count_words('unpopular', ['down', 'vote', 'downvote',
                               'you', 'her', 'unpopular', 'politics'])
     # count_words("hello", ['hello', 'hello', 'hello'])
